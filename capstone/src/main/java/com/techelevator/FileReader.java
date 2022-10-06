@@ -10,14 +10,16 @@ import java.util.Scanner;
 public class FileReader extends Item{
 
 
-        final String fileName = "vendingmachine.csv";
-    private BigDecimal itemPrice;
+    final String fileName = "vendingmachine.csv";
 
-    public FileReader(String slotIdentifier, String itemName, BigDecimal price, String itemType) {
-        super(slotIdentifier, itemName, price, itemType);
+    public FileReader(String line) {
+        super(line);
+    }
+    public FileReader(){
+
     }
 
-    public List<Item> processSlotIdentifier () throws FileNotFoundException {
+    public List<Item> processFile() throws FileNotFoundException {
 
             final File actualFile = new File(fileName);
 
@@ -27,12 +29,10 @@ public class FileReader extends Item{
 
             while (fileReader.hasNextLine()) {
                 final String oneLine = fileReader.nextLine();
-                String[] parts = oneLine.split("\\|");
-                this.setSlotIdentifier(parts[0]);
-                this.setItemName(parts[1]);
-                this.setPrice(itemPrice = new BigDecimal(parts[2]));
-                this.setItemType(parts[3]);
+                Item i = new Item(oneLine);
+                items.add(i);
             }
+            return items;
         }
 
 

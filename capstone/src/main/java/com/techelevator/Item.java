@@ -9,6 +9,9 @@ public class Item {
     private BigDecimal price;
     private String itemType;
 
+    public Item() {
+    }
+
 
 //    Getters
 
@@ -42,11 +45,12 @@ public class Item {
 //    Constructor
 
 
-    public Item(String slotIdentifier, String itemName, BigDecimal price, String itemType) {
-        this.slotIdentifier = slotIdentifier;
-        this.itemName = itemName;
-        this.price = price;
-        this.itemType = itemType;
+    public Item(String line){
+            String[] lineParts = line.split("\\|");
+            this.slotIdentifier = lineParts[0];
+            this.itemName = lineParts[1];
+            this.price=  price = new BigDecimal(lineParts[2]);
+            this.itemType = lineParts[4];
     }
 
     public String getSlotIdentifier() {

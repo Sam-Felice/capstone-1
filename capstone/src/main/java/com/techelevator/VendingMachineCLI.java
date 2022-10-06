@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import java.io.FileNotFoundException;
+
 public class VendingMachineCLI {
 
 
@@ -9,7 +11,7 @@ public class VendingMachineCLI {
 	public void run() {
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		VendingMachineCLI cli = new VendingMachineCLI();
 		cli.run();
 	}
