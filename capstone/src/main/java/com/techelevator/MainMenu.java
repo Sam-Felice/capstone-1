@@ -24,12 +24,13 @@ public class MainMenu {
 
     //Display items method
     public void showItemsDisplay() throws FileNotFoundException {
-        FileReader instance = new FileReader();
-
-
-        System.out.println(instance.processFile());
-//      System.out.println("Hello world");
-    }
+        FileReader instance = new FileReader(new File("vendingmachine.csv"));
+            String itemDescription="";
+            for( Item singleItem : instance.getItems()){
+                itemDescription= singleItem.getSlotIdentifier()+" "+ singleItem.getItemName()+ " $"+singleItem.getPrice()+" "+ singleItem.getItemType();
+                System.out.println(itemDescription);
+            }
+        }
 
     //Exit method
     public void exitApplication() {

@@ -9,31 +9,55 @@ import java.util.Scanner;
 
 public class FileReader extends Item{
 
+    List<Item> items = new ArrayList<>();
+    File actualFile;
 
-    final String fileName = "vendingmachine.csv";
 
-    public FileReader(String line) {
+
+ /*   public FileReader(String line) {
         super(line);
+    }*/
+    public FileReader(File actualFile){
+        this.actualFile=actualFile;
     }
-    public FileReader(){
 
+    public File getActualFile() {
+        return actualFile;
     }
 
-    public List<Item> processFile() throws FileNotFoundException {
+    public void setActualFile(File actualFile) {
+        this.actualFile = actualFile;
+    }
 
-            final File actualFile = new File(fileName);
+    public List<Item> getItems() {
 
-            final Scanner fileReader = new Scanner(actualFile);
+        /*final File actualFile = new File("vendingmachine.csv");*/
 
-            final List<Item> items = new ArrayList<>();
+        try (final Scanner fileReader = new Scanner(actualFile)) {
 
             while (fileReader.hasNextLine()) {
                 final String oneLine = fileReader.nextLine();
-                Item i = new Item(oneLine);
+                /*Item i = new Item(oneLine);*/
+                Item i = new Item();
+                String[] lineParts = oneLine.split("\\|");
+                i.setSlotIdentifier(lineParts[0]);
+                i.setItemName(lineParts[1]);
+                i.setPrice(new BigDecimal(lineParts[2]));
+                i.setItemType(lineParts[3]);
                 items.add(i);
             }
-            return items;
+        } catch (FileNotFoundException e){
+            System.out.println("File not found");
         }
+        return items;
+    }
+    public void displayItemsList(){
+        String itemDescription="";
+        for( Item singleItem : getItems()){
+            itemDescription= singleItem.getSlotIdentifier()+" "+ singleItem.getItemName()+ " $"+singleItem.getPrice()+" "+ singleItem.getItemType();
+            System.out.println(itemDescription);
+        }
+    }
 
 
 

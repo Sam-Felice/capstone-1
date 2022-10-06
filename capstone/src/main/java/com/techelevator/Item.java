@@ -27,6 +27,10 @@ public class Item {
         return itemType;
     }
 
+    public String getSlotIdentifier() {
+        return slotIdentifier;
+    }
+
 //    Setters
 
     public void setItemName(String itemName) {
@@ -42,22 +46,29 @@ public class Item {
     }
 
 
+    public void setSlotIdentifier(String slotIdentifier) {
+        this.slotIdentifier = slotIdentifier;
+    }
+
 //    Constructor
 
-
-    public Item(String line){
+/*    public Item(String line){
             String[] lineParts = line.split("\\|");
             this.slotIdentifier = lineParts[0];
             this.itemName = lineParts[1];
             this.price=  price = new BigDecimal(lineParts[2]);
-            this.itemType = lineParts[4];
-    }
+            this.itemType = lineParts[3];
+    }*/
 
-    public String getSlotIdentifier() {
-        return slotIdentifier;
-    }
-
-    public void setSlotIdentifier(String slotIdentifier) {
+    public Item(String slotIdentifier, String itemName, BigDecimal price, String itemType) {
         this.slotIdentifier = slotIdentifier;
+        this.itemName = itemName;
+        this.price = price;
+        this.itemType = itemType;
+    }
+// method
+    public String displayItem(){
+        String itemInfo = slotIdentifier + " " + itemName + " " + price + " " + itemType;
+        return displayItem();
     }
 }
