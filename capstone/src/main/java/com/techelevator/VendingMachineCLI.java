@@ -13,4 +13,12 @@ public class VendingMachineCLI {
 		VendingMachineCLI cli = new VendingMachineCLI();
 		cli.run();
 	}
+
+
+
+
+
+
+
+
 }
