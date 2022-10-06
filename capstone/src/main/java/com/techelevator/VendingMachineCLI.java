@@ -14,7 +14,10 @@ public class VendingMachineCLI {
 	public static void main(String[] args) throws FileNotFoundException {
 		VendingMachineCLI cli = new VendingMachineCLI();
 		cli.run();
+		MainMenu mainMenu = new MainMenu();
+		mainMenu.displayMenu();
 	}
+
 
 
 
