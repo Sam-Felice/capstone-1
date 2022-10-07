@@ -11,7 +11,8 @@ public class Item {
     private String itemName;
     private BigDecimal price;
     private String itemType;
-    private String purchaseMessage = "";
+
+    private int stock =5;
     BuyerBalance balance = new BuyerBalance();
 
     private Map<String, Item> productMap = new HashMap<>();
@@ -41,8 +42,11 @@ public class Item {
         return slotIdentifier;
     }
 
+    public int getStock() {
+        return stock;
+    }
 
-//    Setters
+    //    Setters
     public void setItemName(String itemName) {
         this.itemName = itemName;
     }
@@ -70,11 +74,12 @@ public class Item {
             this.price=  price = new BigDecimal(lineParts[2]);
             this.itemType = lineParts[3];
     }*/
-    public Item(String slotIdentifier, String itemName, BigDecimal price, String itemType) {
+    public Item(String slotIdentifier, String itemName, BigDecimal price, String itemType, int stock) {
         this.slotIdentifier = slotIdentifier;
         this.itemName = itemName;
         this.price = price;
         this.itemType = itemType;
+        this.stock = stock;
     }
 
     // method
@@ -95,8 +100,18 @@ public class Item {
         UserInterface ui = new UserInterface();
         System.out.println("Please enter slot identifier");
         String userChoice = ui.getCommands();
-        purchaseMessage = getProductMap().get(userChoice).getItemName()+ " $" + getProductMap().get(userChoice).getPrice() + " " + balance.getBalance();
-        System.out.println(purchaseMessage);
+        int specificStockForSelectedItem = getProductMap().get(userChoice).getStock();
+        if(specificStockForSelectedItem==0){
+            System.out.println("Sold out");
+            selectProduct();
+        } else if (specificStockForSelectedItem==1){
+            specificStockForSelectedItem= specificStockForSelectedItem-1;
+            purchaseMessage = getProductMap().get(userChoice).getItemName()+ " $" + getProductMap().get(userChoice).getPrice() + " " + balance.getBalance() + " " + "Sold out";
+            System.out.println(purchaseMessage);
+        } else if(specificStockForSelectedItem>1){
+            specificStockForSelectedItem= specificStockForSelectedItem-1;
+            purchaseMessage = getProductMap().get(userChoice).getItemName()+ " $" + getProductMap().get(userChoice).getPrice() + " " + balance.getBalance() + " " + specificStockForSelectedItem;
+            System.out.println(purchaseMessage);
+        }
     }
-
 }

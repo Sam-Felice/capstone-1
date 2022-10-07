@@ -47,8 +47,8 @@ public class MainMenu {
         }
         else if (input.equals("2")){
             //display purchase menu
-            PurchaseMenu instance = new PurchaseMenu();
-            instance.displayPurchaseMenu();
+            PurchaseMenu showPurchaseMenu = new PurchaseMenu();
+            showPurchaseMenu.displayPurchaseMenu();
         }
         else if (input.equals("3")){
             exitApplication();

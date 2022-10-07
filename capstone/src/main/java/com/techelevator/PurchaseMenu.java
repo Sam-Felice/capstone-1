@@ -9,7 +9,8 @@ public class PurchaseMenu {
     private String feedMoneyButton = "1";
     private String selectProductButton = "2";
     private String finishTransactionButton = "3";
-
+    private String purchaseMessage = "";
+    Item selectingProduct = new Item();
 //Constructor
     public PurchaseMenu(String menu, String feedMoneyButton, String selectProductButton, String finishTransactionButton) {
         this.purchaseMenu = purchaseMenu;
@@ -69,7 +70,6 @@ public class PurchaseMenu {
             } else if (input.equals(selectProductButton)) {
                 MainMenu showProducts = new MainMenu();
                 showProducts.showItemsDisplay();
-                Item selectingProduct = new Item();
                 selectingProduct.selectProduct();
                 //select product
             } else if (input.equals(finishTransactionButton)) {
@@ -78,6 +78,24 @@ public class PurchaseMenu {
                 mainMenu.displayMenu();
             } else {
                 System.out.println("Invalid entry - Please enter 1 2 or 3");
+            }
+        }
+        public void selectProduct(){
+            UserInterface ui = new UserInterface();
+            System.out.println("Please enter slot identifier");
+            String userChoice = ui.getCommands();
+            int specificStockForSelectedItem = selectingProduct.getProductMap().get(userChoice).getStock();
+            if(specificStockForSelectedItem==0){
+                System.out.println("Sold out");
+                selectingProduct.selectProduct();
+            } else if (specificStockForSelectedItem==1){
+                specificStockForSelectedItem= specificStockForSelectedItem-1;
+                purchaseMessage = selectingProduct.getProductMap().get(userChoice).getItemName()+ " $" + selectingProduct.getProductMap().get(userChoice).getPrice() + " " + balance.getBalance() + " " + "Sold out";
+                System.out.println(purchaseMessage);
+            } else if(specificStockForSelectedItem>1){
+                specificStockForSelectedItem= specificStockForSelectedItem-1;
+                purchaseMessage = selectingProduct.getProductMap().get(userChoice).getItemName()+ " $" + selectingProduct.getProductMap().get(userChoice).getPrice() + " " + balance.getBalance() + " " + specificStockForSelectedItem;
+                System.out.println(purchaseMessage);
             }
         }
 
