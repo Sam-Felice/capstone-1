@@ -67,6 +67,10 @@ public class PurchaseMenu {
                 BigDecimal amountToAdd = new BigDecimal(amountToAddAsString);
                 balance.addMoneyToBalance(amountToAdd);
             } else if (input.equals(selectProductButton)) {
+                MainMenu showProducts = new MainMenu();
+                showProducts.showItemsDisplay();
+                Item selectingProduct = new Item();
+                selectingProduct.selectProduct();
                 //select product
             } else if (input.equals(finishTransactionButton)) {
                 transactionFinished=true;
