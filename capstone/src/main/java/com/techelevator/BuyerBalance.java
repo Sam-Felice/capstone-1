@@ -3,7 +3,7 @@ package com.techelevator;
 import java.math.BigDecimal;
 
 public class BuyerBalance {
-
+    
 
     private BigDecimal balance;
 
