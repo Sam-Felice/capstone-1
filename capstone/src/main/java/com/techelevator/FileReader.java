@@ -31,7 +31,7 @@ public class FileReader extends Item{
 
     public List<Item> getItems() {
 
-        /*final File actualFile = new File("vendingmachine.csv");*/
+        final File actualFile = new File("vendingmachine.csv");
 
         try (final Scanner fileReader = new Scanner(actualFile)) {
 

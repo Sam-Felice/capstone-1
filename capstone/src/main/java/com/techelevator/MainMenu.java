@@ -38,22 +38,24 @@ public class MainMenu {
     }
 
     //method
-    public void displayMenu() throws FileNotFoundException {
-        System.out.println(menu);
-        UserInterface ui = new UserInterface();
-        String input = ui.getCommands();
-        if(input.equals("1")){
-            showItemsDisplay();
-        }
-        else if (input.equals("2")){
-            //display purchase menu
-            PurchaseMenu showPurchaseMenu = new PurchaseMenu();
-            showPurchaseMenu.displayPurchaseMenu();
-        }
-        else if (input.equals("3")){
-            exitApplication();
-        } else{
-            System.out.println("Invalid entry - Please enter 1 2 or 3");
+    public void displayMenu(List<Item> items) throws FileNotFoundException {
+        boolean isRunning=true;
+        while (isRunning) {
+            System.out.println(menu);
+            UserInterface ui = new UserInterface();
+            String input = ui.getCommands();
+            if (input.equals(displayItems)) {
+                showItemsDisplay();
+            } else if (input.equals(enterPurchaseMenu)) {
+                //display purchase menu
+                PurchaseMenu showPurchaseMenu = new PurchaseMenu();
+                showPurchaseMenu.displayPurchaseMenu();
+            } else if (input.equals(exitApp)) {
+                isRunning=false;
+                exitApplication();
+            } else {
+                System.out.println("Invalid entry - Please enter 1 2 or 3");
+            }
         }
     }
 

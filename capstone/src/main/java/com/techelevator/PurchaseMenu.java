@@ -11,6 +11,7 @@ public class PurchaseMenu {
     private String finishTransactionButton = "3";
     private String purchaseMessage = "";
     Item selectingProduct = new Item();
+    BuyerBalance balance = new BuyerBalance();
 //Constructor
     public PurchaseMenu(String menu, String feedMoneyButton, String selectProductButton, String finishTransactionButton) {
         this.purchaseMenu = purchaseMenu;
@@ -36,29 +37,12 @@ public class PurchaseMenu {
         return finishTransactionButton;
     }
 
-
-//    Setters
-    public void setPurchaseMenu(String menu) {
-        this.purchaseMenu = purchaseMenu;
-    }
-
-    public void setFeedMoneyButton(String feedMoneyButton) {
-        this.feedMoneyButton = feedMoneyButton;
-    }
-
-    public void setSelectProductButton(String selectProductButton) {
-        this.selectProductButton = selectProductButton;
-    }
-
-    public void setFinishTransactionButton(String finishTransactionButton) {
-        this.finishTransactionButton = finishTransactionButton;
-    }
     //methods
     public void displayPurchaseMenu() throws FileNotFoundException {
         boolean transactionFinished = false;
-        BuyerBalance balance = new BuyerBalance();
-        while(transactionFinished==false) {
-            System.out.printf("Current money provided: $%s",balance.getBalance());
+
+        while (transactionFinished == false) {
+            System.out.printf("Current money provided: $%s", balance.getBalance());
             System.out.println(purchaseMenu);
             UserInterface ui = new UserInterface();
             String input = ui.getCommands();
@@ -70,16 +54,16 @@ public class PurchaseMenu {
             } else if (input.equals(selectProductButton)) {
                 MainMenu showProducts = new MainMenu();
                 showProducts.showItemsDisplay();
-                selectingProduct.selectProduct();
+                selectProduct();
                 //select product
             } else if (input.equals(finishTransactionButton)) {
-                transactionFinished=true;
-                MainMenu mainMenu = new MainMenu();
-                mainMenu.displayMenu();
+                transactionFinished = true;
+                return;
             } else {
                 System.out.println("Invalid entry - Please enter 1 2 or 3");
             }
         }
+    }
         public void selectProduct(){
             UserInterface ui = new UserInterface();
             System.out.println("Please enter slot identifier");
@@ -87,17 +71,19 @@ public class PurchaseMenu {
             int specificStockForSelectedItem = selectingProduct.getProductMap().get(userChoice).getStock();
             if(specificStockForSelectedItem==0){
                 System.out.println("Sold out");
-                selectingProduct.selectProduct();
+                return;
             } else if (specificStockForSelectedItem==1){
-                specificStockForSelectedItem= specificStockForSelectedItem-1;
-                purchaseMessage = selectingProduct.getProductMap().get(userChoice).getItemName()+ " $" + selectingProduct.getProductMap().get(userChoice).getPrice() + " " + balance.getBalance() + " " + "Sold out";
+                balance.takeMoneyForPurchase(selectingProduct.getProductMap().get(userChoice).getPrice());
+                selectingProduct.subtractsOneFromStock(userChoice);
+                purchaseMessage = selectingProduct.getProductMap().get(userChoice).getItemName()+ " $" + selectingProduct.getProductMap().get(userChoice).getPrice() + " $" +balance.getBalance()+ " " + "Sold out";
                 System.out.println(purchaseMessage);
             } else if(specificStockForSelectedItem>1){
-                specificStockForSelectedItem= specificStockForSelectedItem-1;
-                purchaseMessage = selectingProduct.getProductMap().get(userChoice).getItemName()+ " $" + selectingProduct.getProductMap().get(userChoice).getPrice() + " " + balance.getBalance() + " " + specificStockForSelectedItem;
+                balance.takeMoneyForPurchase(selectingProduct.getProductMap().get(userChoice).getPrice());
+                selectingProduct.subtractsOneFromStock(userChoice);
+                purchaseMessage = selectingProduct.getProductMap().get(userChoice).getItemName()+ " $" + selectingProduct.getProductMap().get(userChoice).getPrice() + " $" + balance.getBalance()+" " + selectingProduct.getProductMap().get(userChoice).getStock()2
+            ;
                 System.out.println(purchaseMessage);
             }
         }
 
-    }
 }

@@ -29,8 +29,8 @@ public class BuyerBalance {
         balance=balance.add(amountToAdd);
         return balance;
     }
-    /*public BigDecimal takeMoneyForPurchase(BigDecimal price){
-        balance.subtract();
+    public BigDecimal takeMoneyForPurchase(BigDecimal price){
+        balance=balance.subtract(price);
         return balance;
-    }*/
+    }
 }

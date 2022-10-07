@@ -66,14 +66,6 @@ public class Item {
 
 
 //    Constructor
-
-/*    public Item(String line){
-            String[] lineParts = line.split("\\|");
-            this.slotIdentifier = lineParts[0];
-            this.itemName = lineParts[1];
-            this.price=  price = new BigDecimal(lineParts[2]);
-            this.itemType = lineParts[3];
-    }*/
     public Item(String slotIdentifier, String itemName, BigDecimal price, String itemType, int stock) {
         this.slotIdentifier = slotIdentifier;
         this.itemName = itemName;
@@ -83,10 +75,6 @@ public class Item {
     }
 
     // method
-    /*public String displayItem(){
-        String itemInfo = slotIdentifier + " " + itemName + " " + price + " " + itemType;
-        return displayItem();
-    }*/
     public Map<String, Item> getProductMap (){
         FileReader retrievingItems = new FileReader(new File("vendingmachine.csv"));
         for (Item singleItem : retrievingItems.getItems()){
@@ -94,24 +82,8 @@ public class Item {
         }
         return productMap;
     }
-
-
-    public void selectProduct(){
-        UserInterface ui = new UserInterface();
-        System.out.println("Please enter slot identifier");
-        String userChoice = ui.getCommands();
-        int specificStockForSelectedItem = getProductMap().get(userChoice).getStock();
-        if(specificStockForSelectedItem==0){
-            System.out.println("Sold out");
-            selectProduct();
-        } else if (specificStockForSelectedItem==1){
-            specificStockForSelectedItem= specificStockForSelectedItem-1;
-            purchaseMessage = getProductMap().get(userChoice).getItemName()+ " $" + getProductMap().get(userChoice).getPrice() + " " + balance.getBalance() + " " + "Sold out";
-            System.out.println(purchaseMessage);
-        } else if(specificStockForSelectedItem>1){
-            specificStockForSelectedItem= specificStockForSelectedItem-1;
-            purchaseMessage = getProductMap().get(userChoice).getItemName()+ " $" + getProductMap().get(userChoice).getPrice() + " " + balance.getBalance() + " " + specificStockForSelectedItem;
-            System.out.println(purchaseMessage);
-        }
+    public int subtractsOneFromStock(String slotIdentifier){
+        stock=getProductMap().get(slotIdentifier).getStock()-1;
+        return stock;
     }
 }
