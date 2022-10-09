@@ -58,6 +58,7 @@ public class PurchaseMenu {
                 selectProduct(items);
                 //select product
             } else if (input.equals(finishTransactionButton)) {
+                balance.getChange(balance.getBalance());
                 transactionFinished = true;
                 return;
             } else {
@@ -99,7 +100,7 @@ public class PurchaseMenu {
             }else if(selectingProduct.getStockMap(items).get(userChoice).equals(5)){
                 balance.takeMoneyForPurchase(specificPrice);
                 selectingProduct.getStockMap(items).put(userChoice, 4);
-                purchaseMessage = specificItemName+ " $" + specificPrice + " $" + balance.getBalance()+" " + selectingProduct.getStockMap(items).get(userChoice) + " in stock after purchase";
+                purchaseMessage = specificItemName+ " $" + specificPrice + " $" + balance.getBalance()+" " + selectingProduct.getStockMap(items).get(userChoice) + " in stock after purchase" + selectingProduct.getMessage(items, userChoice);
                 System.out.println(purchaseMessage);
             }
         }

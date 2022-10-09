@@ -12,6 +12,10 @@ public class Item {
     private String itemName;
     private BigDecimal price;
     private String itemType;
+    private String chipMessage = " Crunch Crunch, Yum!";
+    private String candyMessage = " Munch Munch, Yum!";
+    private String drinkMessage = " Glug Glug, Yum!";
+    private String gumMessage = " Chew Chew, Yum!";
 
     private Integer stock =5;
     BuyerBalance balance = new BuyerBalance();
@@ -93,5 +97,23 @@ public class Item {
        int specificStock = getProductMap(items).get(slotIdentifier).getStock();
        specificStock = specificStock -1;
         return specificStock;
+    }
+
+    public String getMessage (List<Item> items, String slotIdentifier){
+        if (getProductMap(items).get(slotIdentifier).getItemType().equals("Chip")){
+            return chipMessage;
+        }
+        else if (getProductMap(items).get(slotIdentifier).getItemType().equals("Candy")){
+            return candyMessage;
+        }
+        else if (getProductMap(items).get(slotIdentifier).getItemType().equals("Drink")){
+            return drinkMessage;
+        }
+        else if (getProductMap(items).get(slotIdentifier).getItemType().equals("Gum")){
+            return gumMessage;
+        }
+        else { String invalidMessage = "Invalid";
+            return invalidMessage;
+        }
     }
 }
