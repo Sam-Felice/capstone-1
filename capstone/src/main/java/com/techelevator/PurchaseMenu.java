@@ -11,8 +11,10 @@ public class PurchaseMenu {
     private String selectProductButton = "2";
     private String finishTransactionButton = "3";
     private String purchaseMessage = "";
+    BigDecimal amountToAdd;
     Item selectingProduct = new Item();
     BuyerBalance balance = new BuyerBalance();
+    Logging logInstance = new Logging();
 
     //Constructor
     public PurchaseMenu(String menu, String feedMoneyButton, String selectProductButton, String finishTransactionButton) {
@@ -42,6 +44,10 @@ public class PurchaseMenu {
         return finishTransactionButton;
     }
 
+    public BigDecimal getAmountToAdd() {
+        return amountToAdd;
+    }
+
     //methods
     public void displayPurchaseMenu(List<Item> items) throws FileNotFoundException {
         boolean transactionFinished = false;
@@ -54,13 +60,14 @@ public class PurchaseMenu {
             if (input.equals(feedMoneyButton)) {
                 System.out.println("How much money would you like to add (dollars only, no coins)?");
                 String amountToAddAsString = ui.getCommands();
+                amountToAdd = new BigDecimal(amountToAddAsString);
                 try {
-                    BigDecimal amountToAdd = new BigDecimal(amountToAddAsString);
                     if (amountToAdd.compareTo(BigDecimal.valueOf(0)) == -1) {
                         System.out.println("Please feed money");
                         return;
                     } else {
                         balance.addMoneyToBalance(amountToAdd);
+                        logInstance.feedMoneyLogger(items);
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Please feed money.");

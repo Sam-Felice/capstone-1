@@ -8,6 +8,7 @@ public class BuyerBalance {
     private int quarters = 0;
     private int dimes = 0;
     private int nickels = 0;
+    private BigDecimal amountToAdd;
 
     //constructor
     public BuyerBalance(BigDecimal balance) {
@@ -27,6 +28,7 @@ public class BuyerBalance {
         return balance;
     }
 
+    public BigDecimal getAmountToAdd(){return amountToAdd;}
 
     //methods
     public void displayBalance() {
