@@ -49,7 +49,7 @@ public class MainMenu {
             } else if (input.equals(enterPurchaseMenu)) {
                 //display purchase menu
                 PurchaseMenu showPurchaseMenu = new PurchaseMenu();
-                showPurchaseMenu.displayPurchaseMenu();
+                showPurchaseMenu.displayPurchaseMenu(items);
             } else if (input.equals(exitApp)) {
                 isRunning=false;
                 exitApplication();

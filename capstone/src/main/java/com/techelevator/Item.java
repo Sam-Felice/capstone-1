@@ -3,6 +3,7 @@ package com.techelevator;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Item {
@@ -12,10 +13,11 @@ public class Item {
     private BigDecimal price;
     private String itemType;
 
-    private int stock =5;
+    private Integer stock =5;
     BuyerBalance balance = new BuyerBalance();
 
     private Map<String, Item> productMap = new HashMap<>();
+    private Map <String, Integer> stockMap = new HashMap<>();
 
     public Item() {
     }
@@ -66,7 +68,7 @@ public class Item {
 
 
 //    Constructor
-    public Item(String slotIdentifier, String itemName, BigDecimal price, String itemType, int stock) {
+    public Item(String slotIdentifier, String itemName, BigDecimal price, String itemType, Integer stock) {
         this.slotIdentifier = slotIdentifier;
         this.itemName = itemName;
         this.price = price;
@@ -75,15 +77,21 @@ public class Item {
     }
 
     // method
-    public Map<String, Item> getProductMap (){
-        FileReader retrievingItems = new FileReader(new File("vendingmachine.csv"));
-        for (Item singleItem : retrievingItems.getItems()){
+    public Map<String, Item> getProductMap (List<Item> items){
+        for (Item singleItem : items){
             productMap.put(singleItem.getSlotIdentifier(), singleItem);
         }
         return productMap;
     }
-    public int subtractsOneFromStock(String slotIdentifier){
-        stock=getProductMap().get(slotIdentifier).getStock()-1;
-        return stock;
+    public Map<String, Integer> getStockMap (List<Item> items){
+        for(Item singleItem : items){
+            stockMap.put(singleItem.getSlotIdentifier(), stock);
+        }
+        return stockMap;
+    }
+    public int subtractsOneFromStock(List<Item>items,String slotIdentifier){
+       int specificStock = getProductMap(items).get(slotIdentifier).getStock();
+       specificStock = specificStock -1;
+        return specificStock;
     }
 }

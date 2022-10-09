@@ -2,6 +2,7 @@ package com.techelevator;
 
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class PurchaseMenu {
 
@@ -38,7 +39,7 @@ public class PurchaseMenu {
     }
 
     //methods
-    public void displayPurchaseMenu() throws FileNotFoundException {
+    public void displayPurchaseMenu(List<Item> items) throws FileNotFoundException {
         boolean transactionFinished = false;
 
         while (transactionFinished == false) {
@@ -54,7 +55,7 @@ public class PurchaseMenu {
             } else if (input.equals(selectProductButton)) {
                 MainMenu showProducts = new MainMenu();
                 showProducts.showItemsDisplay();
-                selectProduct();
+                selectProduct(items);
                 //select product
             } else if (input.equals(finishTransactionButton)) {
                 transactionFinished = true;
@@ -64,24 +65,41 @@ public class PurchaseMenu {
             }
         }
     }
-        public void selectProduct(){
+        public void selectProduct(List<Item> items){
             UserInterface ui = new UserInterface();
             System.out.println("Please enter slot identifier");
             String userChoice = ui.getCommands();
-            int specificStockForSelectedItem = selectingProduct.getProductMap().get(userChoice).getStock();
+            Integer specificStockForSelectedItem = selectingProduct.getStockMap(items).get(userChoice);
+            Integer stockMinusOne = specificStockForSelectedItem -1;
+            String specificItemName = selectingProduct.getProductMap(items).get(userChoice).getItemName();
+            BigDecimal specificPrice = selectingProduct.getProductMap(items).get(userChoice).getPrice();
             if(specificStockForSelectedItem==0){
                 System.out.println("Sold out");
                 return;
-            } else if (specificStockForSelectedItem==1){
-                balance.takeMoneyForPurchase(selectingProduct.getProductMap().get(userChoice).getPrice());
-                selectingProduct.subtractsOneFromStock(userChoice);
-                purchaseMessage = selectingProduct.getProductMap().get(userChoice).getItemName()+ " $" + selectingProduct.getProductMap().get(userChoice).getPrice() + " $" +balance.getBalance()+ " " + "Sold out";
+            } else if (selectingProduct.getStockMap(items).get(userChoice)==1){
+                balance.takeMoneyForPurchase(specificPrice);
+                selectingProduct.getStockMap(items).put(userChoice, 0);
+                purchaseMessage = specificItemName+ " $" + specificPrice + " $" +balance.getBalance()+ " " + "Sold out";
                 System.out.println(purchaseMessage);
-            } else if(specificStockForSelectedItem>1){
-                balance.takeMoneyForPurchase(selectingProduct.getProductMap().get(userChoice).getPrice());
-                selectingProduct.subtractsOneFromStock(userChoice);
-                purchaseMessage = selectingProduct.getProductMap().get(userChoice).getItemName()+ " $" + selectingProduct.getProductMap().get(userChoice).getPrice() + " $" + balance.getBalance()+" " + selectingProduct.getProductMap().get(userChoice).getStock()2
-            ;
+            } else if(selectingProduct.getStockMap(items).get(userChoice)==2){
+                balance.takeMoneyForPurchase(specificPrice);
+                selectingProduct.getStockMap(items).put(userChoice, 1);
+                purchaseMessage = specificItemName+ " $" + specificPrice + " $" + balance.getBalance()+" " + selectingProduct.getStockMap(items).get(userChoice) + " in stock after purchase";
+                System.out.println(purchaseMessage);
+            }else if(selectingProduct.getStockMap(items).get(userChoice)==3){
+                balance.takeMoneyForPurchase(specificPrice);
+                selectingProduct.getStockMap(items).put(userChoice, 2);
+                purchaseMessage = specificItemName+ " $" + specificPrice + " $" + balance.getBalance()+" " + selectingProduct.getStockMap(items).get(userChoice) + " in stock after purchase";
+                System.out.println(purchaseMessage);
+            }else if(selectingProduct.getStockMap(items).get(userChoice)==4){
+                balance.takeMoneyForPurchase(specificPrice);
+                selectingProduct.getStockMap(items).put(userChoice, 3);
+                purchaseMessage = specificItemName+ " $" + specificPrice + " $" + balance.getBalance()+" " + selectingProduct.getStockMap(items).get(userChoice) + " in stock after purchase";
+                System.out.println(purchaseMessage);
+            }else if(selectingProduct.getStockMap(items).get(userChoice).equals(5)){
+                balance.takeMoneyForPurchase(specificPrice);
+                selectingProduct.getStockMap(items).put(userChoice, 4);
+                purchaseMessage = specificItemName+ " $" + specificPrice + " $" + balance.getBalance()+" " + selectingProduct.getStockMap(items).get(userChoice) + " in stock after purchase";
                 System.out.println(purchaseMessage);
             }
         }
