@@ -26,6 +26,7 @@ public class BuyerBalance {
         System.out.println("Current money provided: $" +balance);
     }
     public BigDecimal addMoneyToBalance(BigDecimal amountToAdd){
+
         balance=balance.add(amountToAdd);
         return balance;
     }

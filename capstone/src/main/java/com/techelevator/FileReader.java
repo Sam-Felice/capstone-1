@@ -11,6 +11,7 @@ public class FileReader extends Item{
 
     List<Item> items = new ArrayList<>();
     File actualFile;
+    Item stock = new Item();
 
 
 
@@ -54,7 +55,7 @@ public class FileReader extends Item{
     public void displayItemsList(){
         String itemDescription="";
         for( Item singleItem : getItems()){
-            itemDescription= singleItem.getSlotIdentifier()+" "+ singleItem.getItemName()+ " $"+singleItem.getPrice()+" "+ singleItem.getItemType();
+            itemDescription= singleItem.getSlotIdentifier()+" "+ singleItem.getItemName()+ " $"+singleItem.getPrice()+" "+ stock.getProductMap(items).get(singleItem.getSlotIdentifier()).getStock();
             System.out.println(itemDescription);
         }
     }

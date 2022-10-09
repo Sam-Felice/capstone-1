@@ -23,11 +23,10 @@ public class MainMenu {
     }
 
     //Display items method
-    public void showItemsDisplay() throws FileNotFoundException {
-        FileReader instance = new FileReader(new File("vendingmachine.csv"));
+    public void showItemsDisplay(List<Item> items) throws FileNotFoundException {
             String itemDescription="";
-            for( Item singleItem : instance.getItems()){
-                itemDescription= singleItem.getSlotIdentifier()+" "+ singleItem.getItemName()+ " $"+singleItem.getPrice()+" "+ singleItem.getItemType();
+            for( Item singleItem : items){
+                itemDescription= singleItem.getSlotIdentifier()+" "+ singleItem.getItemName()+ " $"+singleItem.getPrice()+" "+ singleItem.getStock() + " in stock";
                 System.out.println(itemDescription);
             }
         }
@@ -45,7 +44,7 @@ public class MainMenu {
             UserInterface ui = new UserInterface();
             String input = ui.getCommands();
             if (input.equals(displayItems)) {
-                showItemsDisplay();
+                showItemsDisplay(items);
             } else if (input.equals(enterPurchaseMenu)) {
                 //display purchase menu
                 PurchaseMenu showPurchaseMenu = new PurchaseMenu();
