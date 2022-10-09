@@ -1,7 +1,6 @@
 package com.techelevator;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 public class BuyerBalance {
     //declaration
@@ -30,7 +29,7 @@ public class BuyerBalance {
         return balance;
     }
 
-    public BigDecimal getAmountToAdd(){return amountToAdd;}
+    public BigDecimal getAmountToAdd(BigDecimal amountToAdd){return this.amountToAdd;}
 
     //methods
     public void displayBalance() {
