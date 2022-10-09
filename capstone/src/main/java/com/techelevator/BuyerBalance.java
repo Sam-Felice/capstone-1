@@ -33,16 +33,12 @@ public class BuyerBalance {
         System.out.println("Current money provided: $" + balance);
     }
 
-    public BigDecimal addMoneyToBalance(BigDecimal amountToAdd) {
-
-        balance = balance.add(amountToAdd);
-
         public BigDecimal addMoneyToBalance (BigDecimal amountToAdd){
             balance = balance.add(amountToAdd);
             return balance;
         }
 
-        public BigDecimal takeMoneyForPurchase(BigDecimal price){
+        public BigDecimal takeMoneyForPurchase(BigDecimal price) {
             balance = balance.subtract(price);
             return balance;
         }
@@ -64,4 +60,3 @@ public class BuyerBalance {
 
         }
     }
-}
