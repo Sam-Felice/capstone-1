@@ -5,13 +5,18 @@ import java.math.BigDecimal;
 public class BuyerBalance {
     //declaration
     private BigDecimal balance = new BigDecimal(0.00);
+    private int quarters = 0;
+    private int dimes = 0;
+    private int nickels = 0;
 
     //constructor
     public BuyerBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
-    public BuyerBalance(){}
+    public BuyerBalance() {
+    }
+
 
     //getter and setter
     public void setBalance(BigDecimal balance) {
@@ -21,17 +26,43 @@ public class BuyerBalance {
     public BigDecimal getBalance() {
         return balance;
     }
+
+
     //methods
-    public void displayBalance(){
-        System.out.println("Current money provided: $" +balance);
+    public void displayBalance() {
+        System.out.println("Current money provided: $" + balance);
     }
+<<<<<<< HEAD
     public BigDecimal addMoneyToBalance(BigDecimal amountToAdd){
 
         balance=balance.add(amountToAdd);
+=======
+
+    public BigDecimal addMoneyToBalance(BigDecimal amountToAdd) {
+        balance = balance.add(amountToAdd);
+>>>>>>> ae1a2a591371424ffdaf016a4830172f0951e495
         return balance;
     }
-    public BigDecimal takeMoneyForPurchase(BigDecimal price){
-        balance=balance.subtract(price);
+
+    public BigDecimal takeMoneyForPurchase(BigDecimal price) {
+        balance = balance.subtract(price);
         return balance;
+    }
+
+    public void getChange(BigDecimal balance) {
+        while (balance.compareTo(BigDecimal.valueOf(0.25)) == 0 || balance.compareTo(BigDecimal.valueOf(0.25)) == 1) {
+            quarters = quarters + 1;
+            balance = balance.subtract(BigDecimal.valueOf(0.25));
+        }
+        while (balance.compareTo(BigDecimal.valueOf(0.10)) == 0 || balance.compareTo(BigDecimal.valueOf(0.10)) == 1) {
+            dimes = dimes + 1;
+            balance = balance.subtract(BigDecimal.valueOf(0.10));
+        }
+        while (balance.compareTo(BigDecimal.valueOf(0.05)) == 0 || balance.compareTo(BigDecimal.valueOf(0.05)) == 1) {
+            nickels = nickels + 1;
+            balance = balance.subtract(BigDecimal.valueOf(0.05));
+        }
+        System.out.println("Please accept your chang of " +getBalance() + " in " + quarters + " Quarter(s), " + dimes + " Dime(s), " + nickels + " Nickel(s)");
+
     }
 }
