@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class BuyerBalance {
     //declaration
@@ -9,6 +10,7 @@ public class BuyerBalance {
     private int dimes = 0;
     private int nickels = 0;
     private BigDecimal amountToAdd;
+    Logging log = new Logging();
 
     //constructor
     public BuyerBalance(BigDecimal balance) {
@@ -58,7 +60,8 @@ public class BuyerBalance {
                 nickels = nickels + 1;
                 balance = balance.subtract(BigDecimal.valueOf(0.05));
             }
-            System.out.println("Please accept your chang of " + getBalance() + " in " + quarters + " Quarter(s), " + dimes + " Dime(s), " + nickels + " Nickel(s)");
+            log.Logger("GIVE CHANGE: ", getBalance(), BigDecimal.valueOf(0.00));
+            System.out.println("Please accept your change of " + getBalance() + " in " + quarters + " Quarter(s), " + dimes + " Dime(s), " + nickels + " Nickel(s)");
 
         }
     }

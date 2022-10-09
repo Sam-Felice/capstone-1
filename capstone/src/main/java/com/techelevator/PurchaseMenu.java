@@ -67,7 +67,7 @@ public class PurchaseMenu {
                         return;
                     } else {
                         balance.addMoneyToBalance(amountToAdd);
-                        logInstance.feedMoneyLogger(items);
+                        logInstance.Logger("FEED MONEY:", amountToAdd, balance.getBalance());
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Please feed money.");
@@ -123,5 +123,6 @@ public class PurchaseMenu {
                 System.out.println(purchaseMessage);
             }
         }
+        logInstance.Logger(selectingProduct.getProductMap(items).get(userChoice).getItemName()+" " + selectingProduct.getProductMap(items).get(userChoice).getSlotIdentifier(), selectingProduct.getProductMap(items).get(userChoice).getPrice(), balance.getBalance());
     }
 }
