@@ -32,37 +32,36 @@ public class BuyerBalance {
     public void displayBalance() {
         System.out.println("Current money provided: $" + balance);
     }
-<<<<<<< HEAD
-    public BigDecimal addMoneyToBalance(BigDecimal amountToAdd){
-
-        balance=balance.add(amountToAdd);
-=======
 
     public BigDecimal addMoneyToBalance(BigDecimal amountToAdd) {
+
         balance = balance.add(amountToAdd);
->>>>>>> ae1a2a591371424ffdaf016a4830172f0951e495
-        return balance;
-    }
 
-    public BigDecimal takeMoneyForPurchase(BigDecimal price) {
-        balance = balance.subtract(price);
-        return balance;
-    }
+        public BigDecimal addMoneyToBalance (BigDecimal amountToAdd){
+            balance = balance.add(amountToAdd);
+            return balance;
+        }
 
-    public void getChange(BigDecimal balance) {
-        while (balance.compareTo(BigDecimal.valueOf(0.25)) == 0 || balance.compareTo(BigDecimal.valueOf(0.25)) == 1) {
-            quarters = quarters + 1;
-            balance = balance.subtract(BigDecimal.valueOf(0.25));
+        public BigDecimal takeMoneyForPurchase(BigDecimal price){
+            balance = balance.subtract(price);
+            return balance;
         }
-        while (balance.compareTo(BigDecimal.valueOf(0.10)) == 0 || balance.compareTo(BigDecimal.valueOf(0.10)) == 1) {
-            dimes = dimes + 1;
-            balance = balance.subtract(BigDecimal.valueOf(0.10));
-        }
-        while (balance.compareTo(BigDecimal.valueOf(0.05)) == 0 || balance.compareTo(BigDecimal.valueOf(0.05)) == 1) {
-            nickels = nickels + 1;
-            balance = balance.subtract(BigDecimal.valueOf(0.05));
-        }
-        System.out.println("Please accept your chang of " +getBalance() + " in " + quarters + " Quarter(s), " + dimes + " Dime(s), " + nickels + " Nickel(s)");
 
+        public void getChange (BigDecimal balance){
+            while (balance.compareTo(BigDecimal.valueOf(0.25)) == 0 || balance.compareTo(BigDecimal.valueOf(0.25)) == 1) {
+                quarters = quarters + 1;
+                balance = balance.subtract(BigDecimal.valueOf(0.25));
+            }
+            while (balance.compareTo(BigDecimal.valueOf(0.10)) == 0 || balance.compareTo(BigDecimal.valueOf(0.10)) == 1) {
+                dimes = dimes + 1;
+                balance = balance.subtract(BigDecimal.valueOf(0.10));
+            }
+            while (balance.compareTo(BigDecimal.valueOf(0.05)) == 0 || balance.compareTo(BigDecimal.valueOf(0.05)) == 1) {
+                nickels = nickels + 1;
+                balance = balance.subtract(BigDecimal.valueOf(0.05));
+            }
+            System.out.println("Please accept your chang of " + getBalance() + " in " + quarters + " Quarter(s), " + dimes + " Dime(s), " + nickels + " Nickel(s)");
+
+        }
     }
 }
