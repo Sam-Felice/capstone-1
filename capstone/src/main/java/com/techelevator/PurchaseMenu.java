@@ -60,8 +60,8 @@ public class PurchaseMenu {
             if (input.equals(feedMoneyButton)) {
                 System.out.println("How much money would you like to add (dollars only, no coins)?");
                 String amountToAddAsString = ui.getCommands();
-                amountToAdd = new BigDecimal(amountToAddAsString);
                 try {
+                    amountToAdd = new BigDecimal(amountToAddAsString);
                     if (amountToAdd.compareTo(BigDecimal.valueOf(0)) == -1) {
                         System.out.println("Please feed money");
                         return;
@@ -116,7 +116,7 @@ public class PurchaseMenu {
                 selectingProduct.getStockMap(items).put(userChoice, 0);
                 purchaseMessage = specificItemName + " $" + specificPrice + " $" + balance.getBalance() + " " + "Sold out";
                 System.out.println(purchaseMessage);
-            } else if (selectingProduct.getStockMap(items).get(userChoice).equals(5)) {
+            } else if (selectingProduct.getStockMap(items).get(userChoice)<=5) {
                 balance.takeMoneyForPurchase(specificPrice);
                 selectingProduct.getStockMap(items).put(userChoice, specificStockForSelectedItem - 1);
                 purchaseMessage = specificItemName + " $" + specificPrice + " $" + balance.getBalance() + " " + selectingProduct.getStockMap(items).get(userChoice) + " in stock after purchase";
