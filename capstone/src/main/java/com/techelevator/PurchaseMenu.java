@@ -6,10 +6,9 @@ import java.util.List;
 
 public class PurchaseMenu {
 
-    private String purchaseMenu = "\n(1) Feed Money \n(2) Select Product \n(3) Finish Transaction";
-    private String feedMoneyButton = "1";
-    private String selectProductButton = "2";
-    private String finishTransactionButton = "3";
+    final String FEED_MONEY_BUTTON = "1";
+    final String SELECT_PRODUCT_BUTTON = "2";
+    final String FINISH_TRANSACTION_BUTTON = "3";
     private String purchaseMessage = "";
     BigDecimal amountToAdd;
     Item selectingProduct = new Item();
@@ -17,31 +16,22 @@ public class PurchaseMenu {
     Logging logInstance = new Logging();
 
     //Constructor
-    public PurchaseMenu(String menu, String feedMoneyButton, String selectProductButton, String finishTransactionButton) {
-        this.purchaseMenu = purchaseMenu;
-        this.feedMoneyButton = feedMoneyButton;
-        this.selectProductButton = selectProductButton;
-        this.finishTransactionButton = finishTransactionButton;
-    }
 
     public PurchaseMenu() {
     }
 
     //Getters
-    public String getPurchaseMenu() {
-        return purchaseMenu;
+
+    public String getFEED_MONEY_BUTTON() {
+        return FEED_MONEY_BUTTON;
     }
 
-    public String getFeedMoneyButton() {
-        return feedMoneyButton;
+    public String getSELECT_PRODUCT_BUTTON() {
+        return SELECT_PRODUCT_BUTTON;
     }
 
-    public String getSelectProductButton() {
-        return selectProductButton;
-    }
-
-    public String getFinishTransactionButton() {
-        return finishTransactionButton;
+    public String getFINISH_TRANSACTION_BUTTON() {
+        return FINISH_TRANSACTION_BUTTON;
     }
 
     public BigDecimal getAmountToAdd() {
@@ -53,38 +43,38 @@ public class PurchaseMenu {
         boolean transactionFinished = false;
 
         while (transactionFinished == false) {
-            System.out.printf("Current money provided: $%s", balance.getBalance());
-            System.out.println(purchaseMenu);
             UserInterface ui = new UserInterface();
+            System.out.println(ui.getCURRENT_MONEY_PROVIDED()+ balance.getBalance());
+            ui.getPURCHASE_MENU_TEXT();
             String input = ui.getCommands();
-            if (input.equals(feedMoneyButton)) {
-                System.out.println("How much money would you like to add (dollars only, no coins)?");
+            if (input.equals(FEED_MONEY_BUTTON)) {
+                ui.getHOW_MUCH_MONEY_TO_FEED_MESSAGE();
                 String amountToAddAsString = ui.getCommands();
                 try {
                     amountToAdd = new BigDecimal(amountToAddAsString);
                     if (amountToAdd.compareTo(BigDecimal.valueOf(0)) == -1) {
-                        System.out.println("Please feed money");
+                        ui.getINVALID_INPUT_FEED_MONEY_MESSAGE();
                         return;
                     } else {
                         balance.addMoneyToBalance(amountToAdd);
                         logInstance.Logger("FEED MONEY:", amountToAdd, balance.getBalance());
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("Please feed money.");
+                    ui.getINVALID_INPUT_FEED_MONEY_MESSAGE();
                 } catch (NullPointerException e) {
-                    System.out.println("Please feed money");
+                    ui.getINVALID_INPUT_FEED_MONEY_MESSAGE();
                 }
-            } else if (input.equals(selectProductButton)) {
+            } else if (input.equals(SELECT_PRODUCT_BUTTON)) {
                 MainMenu showProducts = new MainMenu();
-                showProducts.showItemsDisplay(items);
+                ui.showItemsDisplay(items);
                 selectProduct(items);
                 //select product
-            } else if (input.equals(finishTransactionButton)) {
+            } else if (input.equals(FINISH_TRANSACTION_BUTTON)) {
                 balance.getChange(balance.getBalance());
                 transactionFinished = true;
                 return;
             } else {
-                System.out.println("Invalid entry - Please enter 1 2 or 3");
+                ui.getINVALID_MENU_INPUT();
             }
         }
     }
