@@ -13,11 +13,6 @@ public class FileReader extends Item{
     File actualFile;
     Item stock = new Item();
 
-
-
- /*   public FileReader(String line) {
-        super(line);
-    }*/
     public FileReader(File actualFile){
         this.actualFile=actualFile;
     }
@@ -47,20 +42,9 @@ public class FileReader extends Item{
                 i.setItemType(lineParts[3]);
                 items.add(i);
             }
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
         return items;
     }
-    public void displayItemsList(){
-        String itemDescription="";
-        for( Item singleItem : getItems()){
-            itemDescription= singleItem.getSlotIdentifier()+" "+ singleItem.getItemName()+ " $"+singleItem.getPrice()+" "+ stock.getProductMap(items).get(singleItem.getSlotIdentifier()).getStock();
-            System.out.println(itemDescription);
-        }
-    }
-
-
-
-
 }
